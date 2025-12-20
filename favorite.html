@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Favorites</title>
+  <title>Favorite</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://kit.fontawesome.com/55ae6491e6.js" crossorigin="anonymous"></script>
   <script src="script.js"></script>
@@ -15,7 +15,7 @@
     <div class="header">
         <div class="header__row">
           <div class="logo">
-            <img class="logo__img" src="./assets/movie-logo-white.png" alt="LOGO"/>
+            <img class="logo__img" src="./assets/logo-2.png" alt="LOGO"/>
               <div class="title">
               <p>My <span>Movies</span></p>
               </div>
@@ -29,25 +29,22 @@
     <!-- Search Container -->
     <div class="search__container">
       <div class="search__row">
-        <div class="search__element">
-          <input type="text" class="search__bar" placeholder="Type Movie Title ..." 
-          id="input">
-          <button type="submit" class="search__bar--btn">Search</button>
-        </div>
+        <form class="search__form" method="get">
+          <input type="text" class="search__input"placeholder="Type Movie Title" id="input">
+          <button type="submit" class="search__btn">Search</button>
+        </form>
       </div>
     </div>
   
     <!-- Main Content Container -->
-    <div class="main__wrapper">
-      <div class="main">
-        <h1>Favorites</h1>
-        <br>
+    <div class="main">
+      <h1>Favorites</h1>
+      <br><br>
+      <div class="fav__container">
+      <!-- Favorite Movies -->
       </div>
     </div>
-
-    <!-- Favorite Movies Display Section -->
-      
-    <div class="fav__container"></div>
+    
   </section>
 </body>
 </html>
