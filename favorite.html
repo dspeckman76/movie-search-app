@@ -21,7 +21,7 @@
               </div>
           </div>
           <div class="favorites">
-            <button class="favorites__btn"><a href="index.html">Home</a></button>
+            <button class="favorites__btn"><a href="index.html" id="homeBtn">Home</a></button>
           </div>
         </div>
     </div>
@@ -30,8 +30,8 @@
     <div class="search__container">
       <div class="search__row">
         <form class="search__form" method="get">
-          <input type="text" class="search__input"placeholder="Type Movie Title" id="input">
-          <button type="submit" class="search__btn">Search</button>
+          <input type="text" class="search__input"placeholder="Type Movie Title" id="searchInput">
+          <button type="submit" class="search__btn" id="searchBtn">Search</button>
         </form>
       </div>
     </div>
@@ -42,9 +42,26 @@
       <br><br>
       <div class="fav__container">
       <!-- Favorite Movies -->
+      
+      <div class="fav__item">
+        <div class="fav__poster">
+        <a href="movie.html"><img src="assets/blank-poster.jpeg" alt=""></a>
+        </div>
+        <div class="fav__details">
+            <div class="fav__details--box">
+              <div>
+                <p class="fav__movie--name"><a href="movie.html">Title</a></p>
+                <p class="fav__movie--rating"><a href="movie.html">Year</a></p>
+              </div>
+              <div>
+                <i class="fa-solid fa-bookmark" style="cursor:pointer" onClick="addToFavorites('')"></i>
+              </div>
+            </div>
+        </div>
       </div>
-    </div>
     
+    </div>
+    </div>
   </section>
 </body>
 </html>

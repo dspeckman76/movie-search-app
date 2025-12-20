@@ -21,7 +21,7 @@
               </div>
           </div>
           <div class="favorites">
-            <button class="favorites__btn"><a href="index.html">Home</a></button>
+            <button class="favorites__btn"><a href="index.html" id="homeBtn">Home</a></button>
           </div>
         </div>
     </div>
@@ -30,8 +30,8 @@
     <div class="search__container">
       <div class="search__row">
         <form class="search__form" method="get">
-          <input type="text" class="search__input"placeholder="Type Movie Title" id="input">
-          <button type="submit" class="search__btn">Search</button>
+          <input type="text" class="search__input"placeholder="Type Movie Title" id="searchInput">
+          <button type="submit" class="search__btn" id="searchBtn">Search</button>
         </form>
       </div>
     </div>
@@ -42,9 +42,42 @@
       <br><br>
       <div class="movie__container">
         <!-- Movie Details -->
+
+
+      <div class="movie__poster">
+        <img src="assets/poster.jpg" alt="Movie Poster">
+      </div>
+      <div class="movie__details">
+          <div class="details__header">
+              <div class="dh__ls">
+                  <h2>Title</h2>
+              </div>
+              <div class="dh__rs">
+                  <i class="fa-solid fa-bookmark" onClick=""></i>
+              </div>
+          </div>
+          <span class="italics__text">Year</span>
+          <span class="italics__text">Country</span>
+          <span class="italics__text">Rating</span>
+          <ul class="details__ul">
+              <li><strong>Actors: </strong></li>
+              <li><strong>Director: </strong></li>
+              <li><strong>Writers: </strong></li>
+          </ul>
+          <ul class="details__ul">
+              <li><strong>Genre: </strong></li>
+              <li><strong>Release Date: </strong></li>
+              <li><strong>Box Office: </strong></li>
+              <li><strong>Movie Runtime: </strong></li>
+          </ul>
+          <p>Plot</p>
+          <p>Awards</p>
+      </div> 
+
+
+        
       </div>
     </div>
-
   </section>
 </body>
 </html>
