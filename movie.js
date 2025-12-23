@@ -13,59 +13,6 @@ const options = {
   }
 };
 
-// Function to fetch movie data based on title
-async function fetchMovieData(movieTitle) {
-  try {
-    const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(movieTitle)}&language=en-US`, options);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    displayResults(data.results); // Call function to display results
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-}
-
-// Function to display movie results
-function displayResults(results) {
-  const resultsDiv = document.getElementById('results');
-  resultsDiv.innerHTML = ''; // Clear previous results
-
-  if (results.length === 0) {
-    resultsDiv.innerHTML = '<p>No results found.</p>';
-    return;
-  }
-
-  // Use slice to get the first 6 results
-  const limitedResults = results.slice(0, 6);
-
-  limitedResults.forEach(movie => {
-    // Construct the full image URL
-    const fullImageUrl = `${baseImageUrl}${imageSize}${movie.poster_path}`; // Assuming movie.poster_path contains the path
-    const movieElement = `
-      <div class="fav__item">
-          <div class="fav__poster">
-          <a href="movieDetails.html?id=${movie.id}"> <!-- Link to the movie details page -->
-          <img src="${fullImageUrl}" alt="Movie Poster"> <!-- Use the full image URL here -->
-      </a>
-          </div>
-          <div class="fav__details">
-              <div class="fav__details--box">
-                  <div>
-                      <p class="fav__movie--name"><a href="movieDetails.html?id=${movie.id}">${movie.title}</a></p>
-                      <p class="fav__movie--date"><a href="movieDetails.html?id=${movie.id}">${movie.release_date}</a></p>
-                  </div>
-              </div>
-          </div>
-      </div>
-    `;
-
-    resultsDiv.innerHTML += movieElement; // Append the movie element to the results div
-  });
-}
 
 // Async function to fetch movie details by ID
 async function fetchMovieDetails(movieId) {
@@ -121,6 +68,7 @@ async function fetchMovieDetails(movieId) {
     console.error('Error fetching movie details:', error);
   }
 }
+
 
 // Event listener for the search button
 document.getElementById('searchButton').addEventListener('click', () => {

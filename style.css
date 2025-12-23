@@ -229,7 +229,7 @@ MOVIE CONTAINER
 
 .movie__container {
   width: 50%;
-  background-color: #242424;
+  background-color: #fff;
   padding: 20px;
   margin: 0px auto;
   display: flex;
