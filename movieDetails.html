@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Index</title>
-  <style>
-</style>
+  <title>Movie</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://kit.fontawesome.com/55ae6491e6.js" crossorigin="anonymous"></script>
-
+  
 </head>
+
 <body>
   <section class="wrapper">
     <!-- Logo -->
@@ -22,7 +21,7 @@
               </div>
           </div>
           <div class="favorites">
-            <button class="favorites__btn"><a href="index.html" id="favoritesBtn">Favorites</a></button>
+            <button class="favorites__btn"><a href="index.html" id="homeBtn">Home</a></button>
           </div>
         </div>
     </div>
@@ -33,26 +32,20 @@
         <div class="search__box">
           <input id="searchInput" type="text" class="search__input" placeholder="Type Movie Title">
           <button id="searchButton" type="button" class="search__btn">Search</button>
-         
         </div>
       </div>
     </div>
-
-
+  
     <!-- Main Content Container -->
     <div class="main">
-      <h1>Movie Results</h1>
+      <h1>Movie Details</h1>
       <br><br>
-      <div id="results" class="fav__container">
-        <!-- search results-->
-      </div> <!-- close fav container -->
-      <!--Watermark Area / Start Exploring Section-->
-      <div class="start__exploring">
-        <i class="fa-solid fa-film fa-6x"></i><br>
-        <span>Start Exploring!</span>
-      </div>
-    </div> <!-- close main -->
+      <div id="movie" class="movie__container">
+        
+      </div> <!-- close movie container -->
+       
 
+    </div> <!-- close main -->
   </section>
   <script src="script.js"></script>
 </body>
