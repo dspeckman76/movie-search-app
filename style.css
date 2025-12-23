@@ -34,7 +34,7 @@ h1 {
 }
 
 .wrapper .container {
-  max-width: 1200px;
+  max-width: 1800px;
   margin: 0 auto;
   padding: 0 1rem;
 }
@@ -198,7 +198,8 @@ MAIN CONTAINER
   padding: 40px;
   min-height: 63vh;
   background-image: url('./assets/bg-1.jpg');
-}
+  background-repeat: no-repeat;
+  background-size: 100%;
 
 /* 
 
