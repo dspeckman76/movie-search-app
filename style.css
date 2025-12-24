@@ -25,7 +25,7 @@ button {
 h1 {
   display: flex;
   justify-content: center;
-  font-size: Bold;
+  font-size: 36px;
 }
 
 .wrapper {
@@ -200,7 +200,7 @@ MAIN CONTAINER
   background-image: url('./assets/bg-1.jpg');
   background-repeat: no-repeat;
   background-size: 100%;
-
+}
 /* 
 
 Start Exploring 
@@ -229,7 +229,7 @@ MOVIE CONTAINER
 
 .movie__container {
   width: 50%;
-  background-color: #fff;
+  background-color: #1c1c1c;
   padding: 20px;
   margin: 0px auto;
   display: flex;
@@ -295,21 +295,16 @@ FAVORITES CONTAINER
 */
 
 .fav__container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 53%;
-  padding: 10px;
-  margin: 0px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
 }
 
 .fav__item {
-  box-shadow: 1px 2px #a1a1a1;
-  margin: 0px 5px 25px 5px;
-  width: 28%;
-  padding: 10px;
-  background-color: white;
-  border-radius: 4px;
+  background: #1c1c1c;
+  padding: 15px;
+  border-radius: 8px;
 }
 
 .fav__item a {
@@ -319,7 +314,8 @@ FAVORITES CONTAINER
 
 .fav__poster img {
   width: 100%;
-  border-radius: 4px;
+  border-radius: 6px;
+  margin-bottom: 10px;
 }
 
 .fav__details-box {
@@ -330,14 +326,11 @@ FAVORITES CONTAINER
 }
 
 .fav__movie--name {
-  color: black;
-  font-size: 15px;
-  margin-bottom: 0rem;
+  font-size: 18px;
+  margin: 5px 0;
 }
 
 .fav__movie--date {
-  color: #888;
-  font-style: italic;
-  font-size: 13px;
-  margin-bottom: 0rem;
+  font-size: 14px;
+  color: #ccc;
 }

@@ -58,3 +58,4 @@ async function searchMovies() {
 
 document.getElementById("searchBtn")
   .addEventListener("click", searchMovies);
+
