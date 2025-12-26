@@ -5,50 +5,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Movie</title>
   <link rel="stylesheet" href="style.css">
-
   <script src="https://kit.fontawesome.com/55ae6491e6.js" crossorigin="anonymous"></script>
-  
 </head>
-
 <body>
-  <section class="wrapper">
-    <!-- Logo -->
-    <div class="header">
-        <div class="header__row">
-          <div class="logo">
-            <img class="logo__img" src="./assets/logo-2.png" alt="LOGO"/>
-              <div class="title">
-              <p>My <span>Movies</span></p>
-              </div>
-          </div>
-          <div class="favorites">
-            <button class="favorites__btn"><a href="index.html" id="homeBtn">Home</a></button>
+  <section class="body__wrapper">
+    
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header__row">
+        <div class="logo">
+          <img class="logo__img" src="./assets/logo-2.png" alt="LOGO"/>
+          <div class="title">
+            <p>My <span>Movies</span></p>
           </div>
         </div>
-    </div>
 
-    <!-- Search Container -->
+        <div class="nav-links">
+          <button class="favorites__btn">
+            <a href="index.html">Home</a>
+          </button>
+          <button class="favorites__btn">
+            <a href="favorites.html" id="favoritesBtn">Favorites</a>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- SEARCH -->
     <div class="search__container">
       <div class="search__row">
         <div class="search__box">
-          <input id="searchInput" type="text" class="search__input" placeholder="Type Movie Title">
-          <button id="searchButton" type="button" class="search__btn">Search</button>
+          <input type="text" class="search__input" placeholder="Search movies...">
+          <button id="searchBtn" class="search__btn">
+            <span class="search-text">Search</span>
+          </button>
         </div>
       </div>
     </div>
-  
-    <!-- Main Content Container -->
-    <div class="main">
-      <h1>Movie Details</h1>
-      <br><br>
-      <!-- <div id="movie" class="movie__container"> -->
-        <div id="movieDetails" class="movie__container"></div>
-        
-      </div> <!-- close movie container -->
-       
 
-    </div> <!-- close main -->
+    <!-- MAIN CONTENT -->
+    <main class="main">
+      <div class="movie__header-top">
+        <button id="backBtn" class="back-btn">&larr; Back</button>
+        <h1>Movie Details</h1>
+      </div>
+
+      <!-- Results container for messages -->
+      <div id="results" class="results__container"></div>
+
+      <!-- Movie details -->
+      <div id="movieDetails" class="movie"></div>
+    </main>
+
   </section>
+
   <script src="movie.js"></script>
 </body>
 </html>
+
+
+
+
+
