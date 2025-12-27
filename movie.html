@@ -8,60 +8,77 @@
   <script src="https://kit.fontawesome.com/55ae6491e6.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <section class="body__wrapper">
-    
-    <!-- HEADER -->
-    <header class="header">
-      <div class="header__row">
-        <div class="logo">
-          <img class="logo__img" src="./assets/logo-2.png" alt="LOGO"/>
-          <div class="title">
-            <p>My <span>Movies</span></p>
-          </div>
-        </div>
+<section class="body__wrapper">
 
-        <div class="nav-links">
-          <button class="favorites__btn">
-            <a href="index.html">Home</a>
-          </button>
-          <button class="favorites__btn">
-            <a href="favorites.html" id="favoritesBtn">Favorites</a>
-          </button>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header__row">
+      <div class="logo">
+        <img class="logo__img" src="./assets/logo-2.png" alt="LOGO"/>
+        <div class="title">
+          <p>My <span>Movies</span></p>
         </div>
       </div>
-    </header>
 
-    <!-- SEARCH -->
-    <div class="search__container">
-      <div class="search__row">
-        <div class="search__box">
-          <input type="text" class="search__input" placeholder="Search movies...">
-          <button id="searchBtn" class="search__btn">
-            <span class="search-text">Search</span>
-          </button>
+      <!-- Desktop nav -->
+      <div class="nav-links">
+        <button class="favorites__btn"><a href="index.html">Home</a></button>
+        <button class="favorites__btn"><a href="favorites.html">Favorites</a></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE NAVIGATION ACCORDION -->
+  <div class="mobile-nav">
+    <button class="mobile-nav-toggle"><i class="fa-solid fa-bars"></i></button>
+    <div class="nav-accordion">
+      <div class="accordion-item">
+        <button class="accordion-header">Home</button>
+        <div class="accordion-content">
+          <a href="index.html">Go to Home</a>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header">Favorites</button>
+        <div class="accordion-content">
+          <a href="favorites.html">View Favorites</a>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header">Search</button>
+        <div class="accordion-content">
+          <input id="movieInputMobile" type="text" class="search__input" placeholder="Type Movie Title">
+          <button id="searchBtnMobile" type="button" class="search__btn">Search</button>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- MAIN CONTENT -->
-    <main class="main">
-      <div class="movie__header-top">
-        <button id="backBtn" class="back-btn">&larr; Back</button>
-        <h1>Movie Details</h1>
+  <!-- MAIN SEARCH -->
+  <div class="search__container">
+    <div class="search__row">
+      <div class="search__box">
+        <input type="text" class="search__input" placeholder="Search movies...">
+        <button id="searchBtn" class="search__btn">Search</button>
       </div>
+    </div>
+  </div>
 
-      <!-- Results container for messages -->
-      <div id="results" class="results__container"></div>
+  <!-- MOVIE DETAILS -->
+  <main class="main">
+    <div class="movie__header-top">
+      <button id="backBtn" class="back-btn">&larr; Back</button>
+      <h1>Movie Details</h1>
+    </div>
+    <div id="results" class="results__container"></div>
+    <div id="movieDetails" class="movie"></div>
+  </main>
 
-      <!-- Movie details -->
-      <div id="movieDetails" class="movie"></div>
-    </main>
-
-  </section>
-
-  <script src="movie.js"></script>
+</section>
+<script src="movie.js"></script>
 </body>
 </html>
+
 
 
 

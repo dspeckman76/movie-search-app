@@ -1,15 +1,20 @@
 // TMDb API Key = ef943a5f931db3c8d6cbb26093cbd052
+// TMDb API: `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(movieTitle)}`
+//
+// Look into security to hide api keys? - Github Secrets, GitIgnore, .Env
+//
 // OMDb API Key = 48fa60c3
+// OMDb API: `http://www.omdbapi.com/?i=tt3896198&apikey=48fa60c3`
+
+// OMDb no longer offers (free) movie poster images. 
+// Utilize a different API (TMDb) that does for poster images only.
+// Fetch all other movie detail data from OMDb.
 
 const OMDB_API_KEY = "48fa60c3"; // Key for OMDb API
 const resultsContainer = document.getElementById("results"); // Container to display favorite movies
 
 /**
  * Load and display favorite movies
- * - Fetches favorite movies from localStorage
- * - Limits display to 6 movies
- * - Fetches poster from OMDb for each movie
- * - Adds a bookmark icon with onclick to remove from favorites
  */
 async function loadFavorites() {
   const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -53,11 +58,6 @@ async function loadFavorites() {
 
 /**
  * Toggle a movie in favorites
- * - If movie is already in favorites → remove it
- * - If movie is not in favorites → add it
- * - Updates localStorage and refreshes the results container
- * - Displays an alert message on add/remove
- * @param {Object} movie - Movie object from favorites
  */
 function toggleFavorite(movie) {
   let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -87,7 +87,6 @@ loadFavorites();
 
 /**
  * Redirect search from favorites page to index page with query
- * - Takes input from search box
  */
 document.getElementById("searchBtn").addEventListener("click", () => {
   const query = document.querySelector(".search__input").value.trim();
@@ -95,10 +94,20 @@ document.getElementById("searchBtn").addEventListener("click", () => {
   window.location.href = `index.html?search=${encodeURIComponent(query)}`;
 });
 
+// Add Enter key listener to trigger search
+const searchInput = document.querySelector(".search__input");
+const searchBtn = document.getElementById("searchBtn");
+if (searchInput && searchBtn) {
+  searchInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      searchBtn.click();
+    }
+  });
+}
+
 /**
  * Back button functionality
- * - If last search exists in localStorage, navigate back to that search results
- * - Otherwise, fallback to browser history
  */
 document.getElementById("backBtn").addEventListener("click", () => {
   const lastSearch = localStorage.getItem("lastSearch") || "";
@@ -108,5 +117,7 @@ document.getElementById("backBtn").addEventListener("click", () => {
     window.history.back();
   }
 });
+
+
 
 

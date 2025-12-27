@@ -83,6 +83,18 @@ async function searchMovies() {
 // Add event listener for search button click
 document.getElementById("searchBtn").addEventListener("click", searchMovies);
 
+// Add Enter key listener to trigger search
+const searchInput = document.querySelector(".search__input");
+const searchBtn = document.getElementById("searchBtn");
+if (searchInput && searchBtn) {
+  searchInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // prevent default action
+      searchBtn.click(); // trigger the same action as the search button
+    }
+  });
+}
+
 /**
  * Toggle a movie in favorites
  * - If movie is already in favorites → remove it
@@ -111,6 +123,8 @@ function toggleFavorite(movie) {
 
   searchMovies(); // Refresh cards to update bookmark icons
 }
+
+
 
 
 

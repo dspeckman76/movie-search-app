@@ -14,7 +14,6 @@ const OMDB_API_KEY = "48fa60c3";
 const TMDB_API_KEY = "ef943a5f931db3c8d6cbb26093cbd052";
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
 
-
 /**
  * Load movie details
  * - Fetches data from OMDb using IMDb ID
@@ -82,20 +81,17 @@ async function loadMovie() {
  * - Adds movie to favorites if not present
  * - Removes movie if already in favorites
  * - Shows alert message on add/remove
- * @param {Object} movie - Movie object from OMDb/TMDB
  */
 function toggleFavorite(movie) {
   let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
   const index = favorites.findIndex(fav => fav.imdbID === movie.imdbID);
 
   if (index !== -1) {
-    // Movie is already favorited → remove it
     favorites.splice(index, 1);
     localStorage.setItem("favorites", JSON.stringify(favorites));
     alert(`${movie.Title} removed from favorites!`);
   } else {
-    // Add to favorites
-    if (favorites.length >= 6) { // MAX 6 FAVORITES
+    if (favorites.length >= 6) { 
       alert("You can only save up to 6 favorite movies.");
       return;
     }
@@ -116,10 +112,20 @@ document.getElementById("searchBtn").addEventListener("click", () => {
   window.location.href = `index.html?search=${encodeURIComponent(query)}`;
 });
 
+// Add Enter key listener to trigger search
+const searchInput = document.querySelector(".search__input");
+const searchBtn = document.getElementById("searchBtn");
+if (searchInput && searchBtn) {
+  searchInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      searchBtn.click();
+    }
+  });
+}
+
 /**
  * Back button functionality
- * - Goes back to search results if query exists
- * - Otherwise, goes back in browser history
  */
 const backBtn = document.getElementById("backBtn");
 const params = new URLSearchParams(window.location.search);
@@ -135,4 +141,6 @@ if (backBtn && searchQuery) {
 
 // Load movie on page load
 loadMovie();
+
+
 
