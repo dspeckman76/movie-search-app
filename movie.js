@@ -1,43 +1,44 @@
 // TMDb API Key = ef943a5f931db3c8d6cbb26093cbd052
 // TMDb API: `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(movieTitle)}`
 //
-// Look into security to hide api keys? - Github Secrets, GitIgnore, .Env
-//
 // OMDb API Key = 48fa60c3
 // OMDb API: `http://www.omdbapi.com/?i=tt3896198&apikey=48fa60c3`
-
 // OMDb no longer offers (free) movie poster images. 
-// Utilize a different API (TMDb) that does for poster images only.
-// Fetch all other movie detail data from OMDb.
+// Use TMDb for poster images; OMDb for other movie details.
 
 const OMDB_API_KEY = "48fa60c3";
 const TMDB_API_KEY = "ef943a5f931db3c8d6cbb26093cbd052";
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
 
 /**
- * Load movie details
- * - Fetches data from OMDb using IMDb ID
- * - Fetches poster from TMDb
- * - Displays movie info: poster, title, metadata, plot, awards
- * - Updates bookmark state
+ * loadMovie()
+ * - Fetches full movie details from OMDb using IMDb ID
+ * - Fetches poster image from TMDb
+ * - Displays movie poster, metadata, plot, awards
+ * - Sets bookmark icon based on whether movie is in favorites
  */
 async function loadMovie() {
+  // Get IMDb ID from URL query parameter
   const params = new URLSearchParams(window.location.search);
   const imdbID = params.get("id");
   if (!imdbID) return;
 
   try {
+    // Fetch movie details from OMDb
     const omdbResponse = await fetch(`https://www.omdbapi.com/?i=${imdbID}&plot=full&apikey=${OMDB_API_KEY}`);
     const movie = await omdbResponse.json();
 
+    // Fetch poster from TMDb using movie title
     const tmdbResponse = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(movie.Title)}`);
     const tmdbData = await tmdbResponse.json();
     const posterPath = tmdbData.results?.[0]?.poster_path ? `${TMDB_IMAGE_BASE}${tmdbData.results[0].poster_path}` : "";
-    movie.PosterURL = posterPath;
+    movie.PosterURL = posterPath; // store TMDb poster URL in movie object
 
+    // Check if movie is already in favorites
     const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
     const isFavorited = favorites.some(fav => fav.imdbID === movie.imdbID);
 
+    // Render movie details in DOM
     document.getElementById("movieDetails").innerHTML = `
       <div class="movie__top" style="padding:20px;">
         <div class="movie__poster-container">
@@ -77,20 +78,22 @@ async function loadMovie() {
 }
 
 /**
- * Toggle a movie in favorites
- * - Adds movie to favorites if not present
- * - Removes movie if already in favorites
- * - Shows alert message on add/remove
+ * toggleFavorite(movie)
+ * - Adds or removes a movie from favorites stored in localStorage
+ * - Updates the bookmark icon immediately
+ * - Limits favorites to a maximum of 6 movies
  */
 function toggleFavorite(movie) {
   let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
   const index = favorites.findIndex(fav => fav.imdbID === movie.imdbID);
 
   if (index !== -1) {
+    // Movie is already in favorites → remove it
     favorites.splice(index, 1);
     localStorage.setItem("favorites", JSON.stringify(favorites));
     alert(`${movie.Title} removed from favorites!`);
   } else {
+    // Movie not in favorites → add it
     if (favorites.length >= 6) { 
       alert("You can only save up to 6 favorite movies.");
       return;
@@ -104,7 +107,8 @@ function toggleFavorite(movie) {
 }
 
 /**
- * Redirect search from movie page to index page with query
+ * Search functionality
+ * - Redirects to index.html with search query
  */
 document.getElementById("searchBtn").addEventListener("click", () => {
   const query = document.querySelector(".search__input").value.trim();
@@ -112,7 +116,7 @@ document.getElementById("searchBtn").addEventListener("click", () => {
   window.location.href = `index.html?search=${encodeURIComponent(query)}`;
 });
 
-// Add Enter key listener to trigger search
+// Allow pressing Enter to trigger search
 const searchInput = document.querySelector(".search__input");
 const searchBtn = document.getElementById("searchBtn");
 if (searchInput && searchBtn) {
@@ -126,6 +130,7 @@ if (searchInput && searchBtn) {
 
 /**
  * Back button functionality
+ * - Goes back to last search if present, otherwise uses browser history
  */
 const backBtn = document.getElementById("backBtn");
 const params = new URLSearchParams(window.location.search);
@@ -139,5 +144,5 @@ if (backBtn && searchQuery) {
   backBtn.addEventListener("click", () => window.history.back());
 }
 
-// Load movie on page load
+// Load movie details on page load
 loadMovie();
