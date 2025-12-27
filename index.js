@@ -1,13 +1,19 @@
 // TMDb API Key = ef943a5f931db3c8d6cbb26093cbd052
 // TMDb API: `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(movieTitle)}`
 //
+// Look into security to hide api keys? - Github Secrets, GitIgnore, .Env
+//
 // OMDb API Key = 48fa60c3
 // OMDb API: `http://www.omdbapi.com/?i=tt3896198&apikey=48fa60c3`
+
+// OMDb no longer offers (free) movie poster images. 
+// Utilize a different API (TMDb) that does for poster images only.
+// Fetch all other movie detail data from OMDb. 
 
 const OMDB_API_KEY = "48fa60c3"; // Key for OMDb API
 const TMDB_API_KEY = "ef943a5f931db3c8d6cbb26093cbd052"; // Key for TMDb API
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p/w500"; // Base URL for TMDb images
-const resultsContainer = document.getElementById("results"); // Container to display movie results
+const resultsContainer = document.getElementById("results"); // <div> Container to display innerHTML movie results
 
 // Check URL for search query and run search on page load
 document.addEventListener("DOMContentLoaded", () => {
@@ -53,7 +59,7 @@ async function searchMovies() {
   movies.forEach((movie, i) => {
     const poster = posters[i]?.poster_path ? `${TMDB_IMAGE_BASE}${posters[i].poster_path}` : "";
     const isFavorited = favorites.some(fav => fav.imdbID === movie.imdbID); // Check if movie is favorited
-
+    // add to DOM
     resultsContainer.innerHTML += `
       <div class="movie__card">
         <a href="movie.html?id=${movie.imdbID}&search=${encodeURIComponent(title)}">

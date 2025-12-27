@@ -1,26 +1,19 @@
 // TMDb API Key = ef943a5f931db3c8d6cbb26093cbd052
 // TMDb API: `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(movieTitle)}`
 //
+// Look into security to hide api keys? - Github Secrets, GitIgnore, .Env
+//
 // OMDb API Key = 48fa60c3
 // OMDb API: `http://www.omdbapi.com/?i=tt3896198&apikey=48fa60c3`
+
+// OMDb no longer offers (free) movie poster images. 
+// Utilize a different API (TMDb) that does for poster images only.
+// Fetch all other movie detail data from OMDb.
 
 const OMDB_API_KEY = "48fa60c3";
 const TMDB_API_KEY = "ef943a5f931db3c8d6cbb26093cbd052";
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
 
-/**
- * Show temporary message for adding/removing favorites
- * @param {string} text - Message text to display
- */
-function showMessage(text) {
-  const msg = document.getElementById("movieMessage");
-  if (!msg) return;
-  msg.textContent = text;
-  msg.classList.add("show");
-  setTimeout(() => {
-    msg.classList.remove("show");
-  }, 2000);
-}
 
 /**
  * Load movie details
