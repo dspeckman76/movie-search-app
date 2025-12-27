@@ -11,7 +11,7 @@
 // Fetch all other movie detail data from OMDb.
 
 const OMDB_API_KEY = "48fa60c3"; // Key for OMDb API
-const resultsContainer = document.getElementById("results"); // Container to display favorite movies
+const resultsContainer = document.getElementById("results"); // Container for favorite movies
 
 /**
  * Load and display favorite movies
@@ -21,7 +21,7 @@ async function loadFavorites() {
 
   // Show message if no favorites
   if (favorites.length === 0) {
-    resultsContainer.innerHTML = "<p>No favorite movies yet.</p>";
+    resultsContainer.innerHTML = "<p style='color:#fff; text-align:center;'>No favorite movies yet.</p>";
     return;
   }
 
@@ -41,18 +41,26 @@ async function loadFavorites() {
     }
 
     // Render movie card
-    resultsContainer.innerHTML += `
-      <div class="movie__card">
-        <a href="movie.html?id=${movie.imdbID}">
-          ${poster ? `<img src="${poster}" alt="${movie.Title} poster">` : `<div class="no__poster"></div>`}
-          <h2>${movie.Title}</h2>
-        </a>
-        <p>${movie.Year}</p>
-        <i class="fa-solid fa-bookmark movie__bookmark favorited"
-           data-tooltip="Remove from Favorites"
-           onclick='toggleFavorite(${JSON.stringify(movie)})'></i>
-      </div>
+    const card = document.createElement("div");
+    card.classList.add("movie__card");
+
+    card.innerHTML = `
+      <a href="movie.html?id=${movie.imdbID}">
+        ${poster ? `<img src="${poster}" alt="${movie.Title} poster">` : `<div class="no__poster"></div>`}
+        <h2>${movie.Title}</h2>
+      </a>
+      <p>${movie.Year}</p>
+      <i class="fa-solid fa-bookmark movie__bookmark favorited"
+         data-tooltip="Remove from Favorites"></i>
     `;
+
+    // Bookmark click event to remove from favorites
+    const bookmark = card.querySelector(".movie__bookmark");
+    bookmark.addEventListener("click", () => {
+      toggleFavorite(movie);
+    });
+
+    resultsContainer.appendChild(card);
   }
 }
 
@@ -79,7 +87,7 @@ function toggleFavorite(movie) {
     alert(`${movie.Title} added to favorites!`);
   }
 
-  loadFavorites(); // Refresh the results container
+  loadFavorites(); // Refresh results container
 }
 
 // Load favorites on page load
@@ -88,16 +96,17 @@ loadFavorites();
 /**
  * Redirect search from favorites page to index page with query
  */
-document.getElementById("searchBtn").addEventListener("click", () => {
-  const query = document.querySelector(".search__input").value.trim();
-  if (!query) return;
-  window.location.href = `index.html?search=${encodeURIComponent(query)}`;
-});
-
-// Add Enter key listener to trigger search
 const searchInput = document.querySelector(".search__input");
 const searchBtn = document.getElementById("searchBtn");
-if (searchInput && searchBtn) {
+
+if (searchBtn && searchInput) {
+  searchBtn.addEventListener("click", () => {
+    const query = searchInput.value.trim();
+    if (!query) return;
+    window.location.href = `index.html?search=${encodeURIComponent(query)}`;
+  });
+
+  // Enter key triggers search
   searchInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -109,14 +118,18 @@ if (searchInput && searchBtn) {
 /**
  * Back button functionality
  */
-document.getElementById("backBtn").addEventListener("click", () => {
-  const lastSearch = localStorage.getItem("lastSearch") || "";
-  if (lastSearch) {
-    window.location.href = `index.html?search=${encodeURIComponent(lastSearch)}`;
-  } else {
-    window.history.back();
-  }
-});
+const backBtn = document.getElementById("backBtn");
+if (backBtn) {
+  backBtn.addEventListener("click", () => {
+    const lastSearch = localStorage.getItem("lastSearch") || "";
+    if (lastSearch) {
+      window.location.href = `index.html?search=${encodeURIComponent(lastSearch)}`;
+    } else {
+      window.history.back();
+    }
+  });
+}
+
 
 
 

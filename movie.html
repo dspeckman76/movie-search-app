@@ -20,39 +20,13 @@
         </div>
       </div>
 
-      <!-- Desktop nav -->
+      <!-- NAVIGATION -->
       <div class="nav-links">
         <button class="favorites__btn"><a href="index.html">Home</a></button>
         <button class="favorites__btn"><a href="favorites.html">Favorites</a></button>
       </div>
     </div>
   </header>
-
-  <!-- MOBILE NAVIGATION ACCORDION -->
-  <div class="mobile-nav">
-    <button class="mobile-nav-toggle"><i class="fa-solid fa-bars"></i></button>
-    <div class="nav-accordion">
-      <div class="accordion-item">
-        <button class="accordion-header">Home</button>
-        <div class="accordion-content">
-          <a href="index.html">Go to Home</a>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <button class="accordion-header">Favorites</button>
-        <div class="accordion-content">
-          <a href="favorites.html">View Favorites</a>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <button class="accordion-header">Search</button>
-        <div class="accordion-content">
-          <input id="movieInputMobile" type="text" class="search__input" placeholder="Type Movie Title">
-          <button id="searchBtnMobile" type="button" class="search__btn">Search</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- MAIN SEARCH -->
   <div class="search__container">
@@ -65,15 +39,18 @@
   </div>
 
   <!-- MOVIE DETAILS -->
-  <main class="main">
-    <div class="movie__header-top">
-      <button id="backBtn" class="back-btn">&larr; Back</button>
-      <h1>Movie Details</h1>
+  <div class="main__wrapper">
+    <div class="main">
+      <div class="movie__header-top">
+        <button id="backBtn" class="back-btn">&larr; Back</button>
+        <h1>Movie Details</h1>
+      </div>
+      <div id="results" class="results__container"></div>
+      <div id="movieDetails" class="movie">
+        <!-- innerHTML from movie.js-->
+      </div>
     </div>
-    <div id="results" class="results__container"></div>
-    <div id="movieDetails" class="movie"></div>
-  </main>
-
+  </div>
 </section>
 <script src="movie.js"></script>
 </body>

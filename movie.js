@@ -141,6 +141,3 @@ if (backBtn && searchQuery) {
 
 // Load movie on page load
 loadMovie();
-
-
-
