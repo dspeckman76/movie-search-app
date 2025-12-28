@@ -658,6 +658,12 @@ BACK BUTTON
   .header__row { padding: 24px; }
   .logo__img { width: 95px; height: 95px; }
   .search__box { width: 80%; }
+  .search__box-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+  }
   .movie__card { flex: 1 1 calc(33.33% - 20px); }
   .start__exploring { width: 60%; font-size: 1.2rem; }
 }
@@ -667,6 +673,12 @@ BACK BUTTON
   h1 { font-size: 36px; }
   .logo__img { width: 100px; height: 100px; }
   .search__box { width: 70%; }
+  .search__box-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+  }
   .movie__card { flex: 1 1 calc(25% - 20px); }
   .start__exploring { width: 50%; font-size: 1.25rem; }
 }
