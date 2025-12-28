@@ -162,6 +162,12 @@ SEARCH CONTAINER
   justify-content: center;
 }
 
+.search__box-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* spacing between search box and filter button */
+}
+
 .search__box {
   display: flex;
   border: 3px solid #0c46c2;
@@ -211,6 +217,91 @@ SEARCH CONTAINER
 
 .search__btn:active {
   background: #42e7ef;
+  color: #fff;
+}
+
+/* FILTER BUTTON CONTAINER */
+.filter__container {
+  position: relative;
+  display: none; /* Hidden initially, shown after search */
+}
+
+/* FILTER BUTTON */
+.filter__btn {
+  background-color: #0c46c2;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 500px; /* same as nav and search buttons */
+  padding: 12px;        /* match search button */
+  font-size: 14px;      /* match search button */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 80px;      /* reasonable width */
+}
+
+.filter__btn:hover {
+  background-color: #0799ed;
+  transform: scale(1.05);
+}
+
+.filter__btn:active {
+  background-color: #42e7ef;
+  color: #fff;
+}
+
+/* FILTER DROPDOWN OPTIONS */
+.filter__options {
+  display: none;
+  position: absolute;
+  top: 42px; /* dropdown appears below the button */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #1c1c1c;
+  border-radius: 8px;
+  padding: 8px 0;
+  min-width: 240px;
+  z-index: 20;
+}
+
+.filter__options p {
+  margin: 0;
+  padding: 8px 16px;
+  cursor: pointer;
+  color: #fff;
+  transition: all 0.2s ease;
+}
+
+.filter__options p:hover {
+  background-color: #0c46c2;
+  color: #fff;
+}
+
+/* Show filter options on hover of button */
+.filter__container:hover .filter__options {
+  display: block;
+}
+
+/* NAV BUTTONS (e.g., favorites__btn) */
+.favorites__btn,
+.search__btn, /* if you want search button too */
+.filter__btn {
+  border: 2px solid #fff; /* add white border */
+}
+
+/* Optional: keep original hover/active effects */
+.favorites__btn:hover,
+.search__btn:hover,
+.filter__btn:hover {
+  /* existing hover styles remain */
+  background-color: #0799ed;
+  transform: scale(1.05);
+}
+
+.favorites__btn:active,
+.search__btn:active,
+.filter__btn:active {
+  background-color: #42e7ef;
   color: #fff;
 }
 
@@ -475,189 +566,129 @@ BACK BUTTON
   background: #42e7ef;
 }
 
+//* FOOTER */
+.footer__wrapper {
+  background-color: #00070f; /* matches your site background */
+  height: 120px; /* adjust as 20% taller than default if needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-/*
-RESPONSIVE 
-*/
+.footer__content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  text-align: center;
+}
 
-/* Mobile (Portrait / Small Phones) up to 576px */
+.footer__logo {
+  width: 80px; /* adjust logo size */
+  height: auto;
+}
+
+/* SCROLL TO TOP BUTTON */
+.scroll-top-btn {
+  margin-top: 8px;
+  padding: 8px 12px;
+  font-size: 20px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background-color: #0c46c2;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.scroll-top-btn:hover {
+  background-color: #0799ed;
+  transform: scale(1.1);
+}
+
+
+
+/* ==========================
+   RESPONSIVE MEDIA QUERIES
+========================== */
+
+/* SMALL PHONES: ≤576px */
 @media (max-width: 576px) {
-  h1 {
-    font-size: 24px;
-  }
+  h1 { font-size: 24px; }
+  .header__row { flex-direction: column; gap: 12px; padding: 16px; }
+  .logo__img { width: 70px; height: 70px; }
+  .title p { font-size: 1.5rem; margin-left: 0; }
 
-  .header__row {
-    flex-direction: column;
-    gap: 12px;
-    padding: 16px;
-  }
+  .nav-links { flex-wrap: wrap; justify-content: center; }
+  .favorites__btn { padding: 8px 24px; font-size: 0.9rem; }
 
-  .logo__img {
-    width: 70px;
-    height: 70px;
-  }
+  .search__container { height: auto; padding: 20px; }
+  .search__row { padding: 24px; }
+  .search__box { width: 100%; }
+  .search__box-wrapper { flex-direction: column; align-items: center; gap: 12px; }
+  .filter__container { display: flex; justify-content: center; width: auto; }
+  .filter__btn { min-width: 80px; }
 
-  .title p {
-    font-size: 1.5rem;
-    margin-left: 0;
-  }
+  .movie__card { flex: 1 1 calc(50% - 20px); min-width: 140px; }
+  .movie__card h2 { font-size: 1rem; }
+  .movie__card p { font-size: 0.85rem; }
 
-  .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .favorites__btn {
-    padding: 8px 24px;
-    font-size: 0.9rem;
-  }
-
-  .search__container {
-    height: auto;
-    padding: 20px;
-  }
-
-  .search__box {
-    width: 100%;
-  }
-
-  .search__row {
-    padding: 24px;
-  }
-
-  .movie__card {
-    flex: 1 1 calc(50% - 20px);
-    min-width: 140px;
-  }
-
-  .movie__top {
-    flex-direction: column;
-    padding: 16px;
-  }
-
-  .movie__info-container {
-    padding-left: 0;
-  }
-
-  .movie__bottom {
-    padding: 16px;
-  }
-
-  .start__exploring {
-    width: 90%;
-    font-size: 1rem;
-  }
+  .movie__top { flex-direction: column; padding: 16px; }
+  .movie__info-container { padding-left: 0; }
+  .movie__bottom { padding: 16px; }
+  .start__exploring { width: 90%; font-size: 1rem; }
 }
 
-/* Tablet (Portrait) / Large Phones: 576px - 768px */
-@media (min-width: 576px) and (max-width: 768px) {
-  h1 {
-    font-size: 28px;
-  }
+/* LARGE PHONES: 577px–767px */
+@media (min-width: 577px) and (max-width: 767px) {
+  h1 { font-size: 28px; }
+  .header__row { flex-direction: row; flex-wrap: wrap; justify-content: space-between; padding: 20px; }
+  .logo__img { width: 85px; height: 85px; }
+  .title p { font-size: 1.75rem; }
 
-  .header__row {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 20px;
-  }
-
-  .logo__img {
-    width: 85px;
-    height: 85px;
-  }
-
-  .title p {
-    font-size: 1.75rem;
-  }
-
-  .search__box {
-    width: 90%;
-  }
-
-  .movie__card {
-    flex: 1 1 calc(33.33% - 20px);
-    min-width: 150px;
-  }
+  .search__box { width: 90%; }
+  .movie__card { flex: 1 1 calc(33.33% - 20px); min-width: 150px; }
 }
 
-/* Tablet (Landscape) / Small Laptops: 768px - 992px */
-@media (min-width: 768px) and (max-width: 992px) {
-  h1 {
-    font-size: 32px;
-  }
-
-  .header__row {
-    padding: 24px;
-  }
-
-  .logo__img {
-    width: 95px;
-    height: 95px;
-  }
-
-  .search__box {
-    width: 80%;
-  }
-
-  .movie__card {
-    flex: 1 1 calc(33.33% - 20px);
-  }
-
-  .start__exploring {
-    width: 60%;
-    font-size: 1.2rem;
-  }
+/* LARGE TABLETS: 768px–991px */
+@media (min-width: 768px) and (max-width: 991px) {
+  h1 { font-size: 32px; }
+  .header__row { padding: 24px; }
+  .logo__img { width: 95px; height: 95px; }
+  .search__box { width: 80%; }
+  .movie__card { flex: 1 1 calc(33.33% - 20px); }
+  .start__exploring { width: 60%; font-size: 1.2rem; }
 }
 
-/* Desktop / Laptops: 992px - 1200px */
-@media (min-width: 992px) and (max-width: 1200px) {
-  h1 {
-    font-size: 36px;
-  }
-
-  .logo__img {
-    width: 100px;
-    height: 100px;
-  }
-
-  .search__box {
-    width: 70%;
-  }
-
-  .movie__card {
-    flex: 1 1 calc(25% - 20px);
-  }
-
-  .start__exploring {
-    width: 50%;
-    font-size: 1.25rem;
-  }
+/* SMALL LAPTOPS: 992px–1199px */
+@media (min-width: 992px) and (max-width: 1199px) {
+  h1 { font-size: 36px; }
+  .logo__img { width: 100px; height: 100px; }
+  .search__box { width: 70%; }
+  .movie__card { flex: 1 1 calc(25% - 20px); }
+  .start__exploring { width: 50%; font-size: 1.25rem; }
 }
 
-/* Large Desktops / Wide Screens: 1200px+ */
-@media (min-width: 1200px) {
-  h1 {
-    font-size: 40px;
-  }
-
-  .logo__img {
-    width: 120px;
-    height: 120px;
-  }
-
-  .search__box {
-    width: 500px;
-  }
-
-  .movie__card {
-    flex: 1 1 calc(25% - 20px);
-  }
-
-  .start__exploring {
-    width: 50%;
-    font-size: 1.5rem;
-  }
+/* LARGE LAPTOPS: 1200px–1440px */
+@media (min-width: 1200px) and (max-width: 1440px) {
+  h1 { font-size: 40px; }
+  .logo__img { width: 120px; height: 120px; }
+  .search__box { width: 500px; }
+  .movie__card { flex: 1 1 calc(25% - 20px); }
+  .start__exploring { width: 50%; font-size: 1.5rem; }
 }
+
+/* DESKTOP: 1441px+ */
+@media (min-width: 1441px) {
+  h1 { font-size: 44px; }
+  .logo__img { width: 140px; height: 140px; }
+  .search__box { width: 500px; }
+  .movie__card { flex: 1 1 calc(25% - 20px); }
+  .start__exploring { width: 50%; font-size: 1.5rem; }
+}
+
+
 
 

@@ -5,53 +5,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Favorites</title>
   <link rel="stylesheet" href="style.css">
+  <script src="favorites.js" defer></script>
   <script src="https://kit.fontawesome.com/55ae6491e6.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <section class="body__wrapper">
-
+  <div class="body__wrapper">
     <!-- HEADER -->
-    <header class="header">
-      <div class="header__row">
-        <div class="logo">
-          <img class="logo__img" src="./assets/logo-2.png" alt="LOGO"/>
-          <div class="title">
-            <p>My <span>Movies</span></p>
-          </div>
-        </div>
-  
-        <!-- NAVIGATION -->
-        <div class="nav-links">
-          <button class="favorites__btn"><a href="index.html">Home</a></button>
-          <button class="favorites__btn"><a href="favorites.html">Favorites</a></button>
-        </div>
+    <header class="header__row">
+      <div class="logo">
+        <img src="assets/logo-2.png" alt="Logo" class="logo__img">
+        <div class="title"><p>Movie <span>Favorites</span></p></div>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" class="favorites__btn">Home</a>
       </div>
     </header>
-  
-    <!-- MAIN SEARCH -->
+
+    <!-- SEARCH + FILTER -->
     <div class="search__container">
       <div class="search__row">
-        <div class="search__box">
-          <input type="text" class="search__input" placeholder="Search movies...">
-          <button id="searchBtn" class="search__btn">Search</button>
+        <div class="search__box-wrapper">
+          <div class="search__box">
+            <input id="movieInput" type="text" class="search__input" placeholder="Search movies...">
+            <button id="searchBtn" type="button" class="search__btn">Search</button>
+          </div>
+
+          <!-- Filter Button (always visible on favorites.html) -->
+          <div id="filterContainer" class="filter__container">
+            <button class="filter__btn">Filter</button>
+            <div class="filter__options">
+              <p data-filter="release">Release Date (Newest → Oldest)</p>
+              <p data-filter="boxoffice">Box Office (Highest → Lowest)</p>
+              <p data-filter="imdb">IMDb Rating (Highest → Lowest)</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  
+
     <!-- MOVIE FAVORITES -->
-  <div class="main__wrapper">
-    <div class="main">
-      <div class="favorites__header">
-        <button class="back-btn" id="backBtn">&larr; Back</button>
-        <h1>Favorite Movies</h1>
-      </div>
-      <div id="results" class="results__container">
-        <!-- innerHTML from favorites.js-->
+    <div class="main__wrapper">
+      <div class="main">
+        <div class="favorites__header">
+          <button class="back-btn" id="backBtn">&larr; Back</button>
+          <h1>Favorite Movies</h1>
+        </div>
+        <div id="results" class="results__container">
+          <!-- innerHTML from favorites.js-->
+        </div>
       </div>
     </div>
-  </div>
-</section>
-<script src="favorites.js"></script>
+
+    <!-- FOOTER -->
+    <footer class="footer__wrapper">
+      <div class="footer__content">
+        <img src="assets/logo-2.png" alt="Logo" class="footer__logo">
+        <p>Copyright &copy; 2026 Daniel Speckman</p>
+        <!-- SCROLL TO TOP BUTTON -->
+        <button id="scrollTopBtn" class="scroll-top-btn" 
+        title="Go to top">
+          ↑
+        </button>
+        </div>
+    </footer>
+
+  </div> <!-- close body wrapper -->
 </body>
 </html>
+
 

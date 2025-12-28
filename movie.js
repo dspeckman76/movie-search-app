@@ -10,127 +10,149 @@ const OMDB_API_KEY = "48fa60c3";
 const TMDB_API_KEY = "ef943a5f931db3c8d6cbb26093cbd052";
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
 
+// Fallback poster (ADD THIS FILE)
+const FALLBACK_POSTER = "assets/blank-poster.png";
+
 /**
  * loadMovie()
  * - Fetches full movie details from OMDb using IMDb ID
- * - Fetches poster image from TMDb
+ * - Fetches poster image from TMDb using IMDb ID (CORRECT MATCH)
  * - Displays movie poster, metadata, plot, awards
- * - Sets bookmark icon based on whether movie is in favorites
+ * - Sets bookmark icon based on favorites
  */
 async function loadMovie() {
-  // Get IMDb ID from URL query parameter
   const params = new URLSearchParams(window.location.search);
   const imdbID = params.get("id");
   if (!imdbID) return;
 
   try {
-    // Fetch movie details from OMDb
-    const omdbResponse = await fetch(`https://www.omdbapi.com/?i=${imdbID}&plot=full&apikey=${OMDB_API_KEY}`);
+    // ==========================
+    // FETCH OMDb DETAILS
+    // ==========================
+    const omdbResponse = await fetch(
+      `https://www.omdbapi.com/?i=${imdbID}&plot=full&apikey=${OMDB_API_KEY}`
+    );
     const movie = await omdbResponse.json();
 
-    // Fetch poster from TMDb using movie title
-    const tmdbResponse = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(movie.Title)}`);
-    const tmdbData = await tmdbResponse.json();
-    const posterPath = tmdbData.results?.[0]?.poster_path ? `${TMDB_IMAGE_BASE}${tmdbData.results[0].poster_path}` : "";
-    movie.PosterURL = posterPath; // store TMDb poster URL in movie object
+    if (movie.Response === "False") {
+      throw new Error("Movie not found");
+    }
 
-    // Check if movie is already in favorites
+    // Ensure essential fields exist
+    movie.BoxOffice = movie.BoxOffice || "N/A";
+    movie.Ratings = movie.Ratings || [];
+    movie.Awards = movie.Awards || "No awards";
+
+    // ==========================
+    // FETCH TMDb POSTER (IMDb ID)
+    // ==========================
+    let posterURL = FALLBACK_POSTER;
+
+    try {
+      const tmdbRes = await fetch(
+        `https://api.themoviedb.org/3/find/${imdbID}?api_key=${TMDB_API_KEY}&external_source=imdb_id`
+      );
+      const tmdbData = await tmdbRes.json();
+
+      const tmdbMovie = tmdbData.movie_results?.[0];
+      if (tmdbMovie?.poster_path) {
+        posterURL = `${TMDB_IMAGE_BASE}${tmdbMovie.poster_path}`;
+      }
+    } catch (err) {
+      console.warn("TMDb poster fetch failed:", err);
+    }
+
+    // ==========================
+    // FAVORITES CHECK
+    // ==========================
     const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
     const isFavorited = favorites.some(fav => fav.imdbID === movie.imdbID);
 
-    // Render movie details in DOM
+    // ==========================
+    // RENDER MOVIE DETAILS
+    // ==========================
     document.getElementById("movieDetails").innerHTML = `
-      <div class="movie__top" style="padding:20px;">
+      <div class="movie__top">
         <div class="movie__poster-container">
-          ${posterPath ? `<img src="${posterPath}" alt="${movie.Title} poster" class="movie__poster">` : `<div class="no__poster"></div>`}
+          <img 
+            src="${posterURL}" 
+            alt="${movie.Title} poster" 
+            class="movie__poster"
+            onerror="this.src='${FALLBACK_POSTER}'"
+          >
         </div>
 
         <div class="movie__info-container">
           <div class="movie__title-row">
             <h1 class="movie__title">${movie.Title}</h1>
-            <i class="fa-solid fa-bookmark movie__bookmark ${isFavorited ? 'favorited' : ''}" 
+            <i class="fa-solid fa-bookmark movie__bookmark ${isFavorited ? 'favorited' : ''}"
                data-tooltip="${isFavorited ? 'Remove from Favorites' : 'Add to Favorites'}"
                onclick='toggleFavorite(${JSON.stringify(movie)})'>
             </i>
           </div>
+
           <div class="movie__meta">
-            <p><strong>Actors:</strong> ${movie.Actors}</p>
-            <p><strong>Director:</strong> ${movie.Director}</p>
-            <p><strong>Writers:</strong> ${movie.Writer}</p>
-            <p><strong>Genre:</strong> ${movie.Genre}</p>
-            <p><strong>Release Date:</strong> ${movie.Year}</p>
+            <p><strong>Actors:</strong> ${movie.Actors || "N/A"}</p>
+            <p><strong>Director:</strong> ${movie.Director || "N/A"}</p>
+            <p><strong>Writers:</strong> ${movie.Writer || "N/A"}</p>
+            <p><strong>Genre:</strong> ${movie.Genre || "N/A"}</p>
+            <p><strong>Release Date:</strong> ${movie.Released || movie.Year || "N/A"}</p>
             <p><strong>Box Office:</strong> ${movie.BoxOffice}</p>
-            <p><strong>Runtime:</strong> ${movie.Runtime}</p>
+            <p><strong>Runtime:</strong> ${movie.Runtime || "N/A"}</p>
+            <p><strong>Ratings:</strong> ${
+              movie.Ratings.length
+                ? movie.Ratings
+                    .map(r =>
+                      `${r.Source === "Internet Movie Database" ? "IMDb" : r.Source}: ${r.Value}`
+                    )
+                    .join(" | ")
+                : "No ratings available"
+            }</p>
           </div>
         </div>
       </div>
 
-      <div class="movie__bottom" style="padding:20px;">
+      <div class="movie__bottom">
         <h2 class="movie__plot--title">Plot</h2>
-        <p class="movie__plot">${movie.Plot}</p>
-        <p class="movie__awards"><i class="fa-solid fa-award"></i> &thinsp; ${movie.Awards ? movie.Awards : 'No awards'}</p>
+        <p class="movie__plot">${movie.Plot || "Plot not available"}</p>
+        <p class="movie__awards">
+          <i class="fa-solid fa-award"></i> &thinsp; ${movie.Awards}
+        </p>
       </div>
     `;
-  } catch (error) {
-    console.error(error);
-    document.getElementById("movieDetails").innerHTML = "<p>Error loading movie details.</p>";
+
+  } catch (err) {
+    console.error(err);
+    document.getElementById("movieDetails").innerHTML =
+      "<p>Error loading movie details.</p>";
   }
 }
 
 /**
- * toggleFavorite(movie)
- * - Adds or removes a movie from favorites stored in localStorage
- * - Updates the bookmark icon immediately
- * - Limits favorites to a maximum of 6 movies
+ * Toggle a movie in favorites
  */
 function toggleFavorite(movie) {
-  let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+  let favorites = JSON.parse(localStorage.getItem("favorites") || []);
   const index = favorites.findIndex(fav => fav.imdbID === movie.imdbID);
 
   if (index !== -1) {
-    // Movie is already in favorites → remove it
     favorites.splice(index, 1);
-    localStorage.setItem("favorites", JSON.stringify(favorites));
     alert(`${movie.Title} removed from favorites!`);
   } else {
-    // Movie not in favorites → add it
-    if (favorites.length >= 6) { 
+    if (favorites.length >= 6) {
       alert("You can only save up to 6 favorite movies.");
       return;
     }
     favorites.push(movie);
-    localStorage.setItem("favorites", JSON.stringify(favorites));
     alert(`${movie.Title} added to favorites!`);
   }
 
-  loadMovie(); // Refresh movie details to update bookmark color
-}
-
-/**
- * Search functionality
- * - Redirects to index.html with search query
- */
-document.getElementById("searchBtn").addEventListener("click", () => {
-  const query = document.querySelector(".search__input").value.trim();
-  if (!query) return;
-  window.location.href = `index.html?search=${encodeURIComponent(query)}`;
-});
-
-// Allow pressing Enter to trigger search
-const searchInput = document.querySelector(".search__input");
-const searchBtn = document.getElementById("searchBtn");
-if (searchInput && searchBtn) {
-  searchInput.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      searchBtn.click();
-    }
-  });
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+  loadMovie();
 }
 
 /**
  * Back button functionality
- * - Goes back to last search if present, otherwise uses browser history
  */
 const backBtn = document.getElementById("backBtn");
 const params = new URLSearchParams(window.location.search);
@@ -146,3 +168,6 @@ if (backBtn && searchQuery) {
 
 // Load movie details on page load
 loadMovie();
+
+
+

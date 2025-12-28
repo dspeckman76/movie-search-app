@@ -1,69 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Index</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://kit.fontawesome.com/55ae6491e6.js" crossorigin="anonymous"></script>
-</head>
-<body>
-<section class="body__wrapper">
-  
-  <!-- HEADER -->
-  <div class="header">
-    <div class="header__row">
-      <div class="logo">
-        <img class="logo__img" src="./assets/logo-2.png" alt="LOGO"/>
-        <div class="title">
-          <p>My <span>Movies</span></p>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/55ae6491e6.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <section class="body__wrapper">
+      
+      <!-- HEADER -->
+      <div class="header">
+        <div class="header__row">
+          <div class="logo">
+            <img class="logo__img" src="./assets/logo-2.png" alt="LOGO"/>
+            <div class="title">
+              <p>My <span>Movies</span></p>
+            </div>
+          </div>
+          <!-- NAVIGATION -->
+          <div class="nav-links">
+            <button class="favorites__btn"><a href="index.html">Home</a></button>
+            <button class="favorites__btn"><a href="favorites.html">Favorites</a></button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- MAIN SEARCH -->
+      <div class="search__container">
+        <div class="search__row">
+          <div class="search__box-wrapper">
+            <!-- Search Box -->
+            <div class="search__box">
+              <input id="movieInput" type="text" class="search__input" placeholder="Search movies...">
+              <button id="searchBtn" type="button" class="search__btn">Search</button>
+            </div>
+
+            <!-- Filter Button -->
+            <div id="filterContainer" class="filter__container">
+              <button class="filter__btn">Filter</button>
+              <div class="filter__options">
+                <p data-filter="release">Release Date (Newest → Oldest)</p>
+                <p data-filter="boxoffice">Box Office (Highest → Lowest)</p>
+                <p data-filter="imdb">IMDb Rating (Highest → Lowest)</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- NAVIGATION -->
-      <div class="nav-links">
-        <button class="favorites__btn">
-          <a href="index.html">Home</a>
-        </button>
-        <button class="favorites__btn">
-          <a href="favorites.html" id="favoritesBtn">Favorites</a>
-        </button>
+      <!-- MOVIE SEARCH RESULTS -->
+      <div class="main__wrapper">
+        <div class="main">
+          <h1>Movie Results</h1>
+          <div id="results" class="results__container"></div>
+          <div id="explore" class="start__exploring">
+            <i class="fa-solid fa-film fa-6x"></i>
+            <h2>Start Exploring!</h2>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <!-- MAIN SEARCH -->
-  <div class="search__container">
-    <div class="search__row">
-      <div class="search__box">
-        <input id="movieInput" type="text" class="search__input" placeholder="Type Movie Title">
-        <button id="searchBtn" type="button" class="search__btn">Search</button>
-      </div>
-    </div>
-  </div>
+      <!-- FOOTER -->
+      <footer class="footer__wrapper">
+        <div class="footer__content">
+          <img src="assets/logo-2.png" alt="Logo" class="footer__logo">
+          <p>Copyright &copy; 2026 Daniel Speckman</p>
+          <!-- SCROLL TO TOP BUTTON -->
+          <button id="scrollTopBtn" class="scroll-top-btn" 
+          title="Go to top">
+            ↑
+          </button>
+          </div>
+      </footer>
 
-  <!-- MOVIE SEARCH RESULTS -->
-  <div class="main__wrapper">
-    <div class="main">
-      <h1>Movie Results</h1>
-      <div id="results" class="results__container">
-          <!-- innerHTML from index.js-->
-      </div>
-      <div id="explore" class="start__exploring">
-        <i class="fa-solid fa-film fa-6x"></i>
-        <h2>Start Exploring!</h2>
-      </div>
-    </div>
-  </div>
-  
-</section>
-
-<script src="index.js"></script>
-</body>
+    </section>
+    <script src="index.js"></script>
+  </body>
 </html>
-</section>
 
-<script src="index.js"></script>
-</body>
-</html>
 
